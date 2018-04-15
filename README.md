@@ -14,7 +14,11 @@ For executing source code:
 2. In the folder where creditcardfraud.csv is present, make a folder with name source.
 3. Copy all source file in source folder.
 4. Each source file can run independently. For executing use any IDE, or for command line use command
-
 		python3 filename.py
+5. For obtaining different models in same domain change parameters of model initialization in source files as given. E.g. Change
+		model = svm.SVC(kernel='rbf', C=1, gamma=10)
+		to
+		model = svm.SVC(kernel='linear', C=1)
+	to change SVM model from RBF to Linear.
 
 The source files can take anywhere between 3s to 15min to execute for given dataset.
