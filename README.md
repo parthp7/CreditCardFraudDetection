@@ -14,6 +14,7 @@ For executing source code:
 2. In the folder where creditcardfraud.csv is present, make a folder with name source.
 3. Copy all source file in source folder.
 4. Each source file can run independently. For executing use any IDE, or for command line use command
-	python3 filename.py
+
+		python3 filename.py
 
 The source files can take anywhere between 3s to 15min to execute for given dataset.
