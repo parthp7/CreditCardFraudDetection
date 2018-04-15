@@ -29,15 +29,18 @@ def undetectedFraudRate(test, pred):
     
     det = 0
     fraud = 0
+    predF = 0
     
     for i in range(0, len(test)):
+        if(pred[i]==1):
+            predF = predF + 1
         
         if(test[i]==1):
             fraud = fraud + 1
             if(pred[i]==1):
                 det = det + 1
                 
-    return det, fraud
+    return det, fraud, predF
 
 
 if __name__ == "__main__":
@@ -45,7 +48,7 @@ if __name__ == "__main__":
     st_time = time.time()
     pd.options.mode.chained_assignment = None
     
-    data = pd.read_csv('creditcard.csv')
+    data = pd.read_csv('../creditcard.csv')
     
     features = ['Amount'] + ['V%d' % number for number in range (1,29)]
     target = 'Class'
@@ -53,7 +56,7 @@ if __name__ == "__main__":
     X = data[features]
     Y = data[target]
     
-    splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=0)
+    splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=0)
     
     model = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(15,), random_state=1)
     
@@ -70,8 +73,8 @@ if __name__ == "__main__":
         
         print('\nClassification report: \n{}'.format(classification_report(Y_test, predicted)))
         
-        det, tot = undetectedFraudRate(Y_test.values, predicted)
-        print('Fraud detection accuracy: {}'.format(det/tot*100))
+        det, tot1, tot2 = undetectedFraudRate(Y_test.values, predicted)
+        print('Precision:\t{} %\nRecall:\t\t{} %'.format(det/tot2*100,det/tot1*100))
         
         avg_precision = average_precision_score(Y_test, predicted)
         

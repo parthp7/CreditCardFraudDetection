@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Apr 14 18:54:50 2018
+Created on Sun Apr 15 10:35:27 2018
 
 @author: parth
 """
 
 import pandas as pd
-from sklearn.naive_bayes import BernoulliNB
 from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn import tree
 from sklearn.metrics import classification_report
 from sklearn.metrics import average_precision_score
 from sklearn.metrics import precision_recall_curve
@@ -55,10 +55,9 @@ if __name__ == "__main__":
     
     X = data[features]
     Y = data[target]
-    
+        
+    model = tree.DecisionTreeClassifier()
     splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=0)
-    
-    model = BernoulliNB()
     
     for train_indices, test_indices in splitter.split(X,Y):
         
